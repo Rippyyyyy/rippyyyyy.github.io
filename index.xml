@@ -13,10 +13,9 @@
       <pubDate>Sun, 29 Nov 2020 15:25:53 +0000</pubDate>
       
       <guid>https://rippyyyyy.github.io/posts/php8-img-bed/</guid>
-      <description>rippy 发现前几天发布了PHP 8！既然之前说了不想成为废物，那么就一边看看PHP 8有什么新东西，一边用PHP 8来写点有趣的东西好啦( ´▽｀)，比如写一个图床服务！
-穷穷的 rippy 只能买得起一个最便宜的、远在波斯尼亚的VPS (&amp;gt;﹏&amp;lt;)
-sudo apt-get update sudo apt-get install -y git build-essential vim zsh wget gcc \  libgccjit-9-dev libsystemd-dev libzip-dev libxml2-dev libonig-dev \  libsqlite3-dev libjpeg-dev libpng-dev libwebp-dev \  libmysqlclient-dev \  autoconf automake re2c bison pkg-config libtool 编译配置PHP 8 接着就是下载和编译PHP 8的源代码了！
-wget https://www.php.net/distributions/php-8.0.0.tar.xz -O php-8.0.0.tar.xz tar xf php-8.0.0.tar.xz cd php-8.0.0 ./configure --prefix=/usr/local --enable-fpm --enable-opcache --with-zlib \  --enable-sockets --enable-bcmath --enable-mbstring \  --enable-gd --with-webp --with-jpeg --enable-exif \  --with-fpm-systemd --without-pear \  --with-mysqli=`which mysql_config` \  --with-mysql-sock=/var/run/mysqld/mysqld.</description>
+      <description>&lt;p&gt;rippy 发现前几天发布了PHP 8！既然之前说了不想成为废物，那么就一边看看PHP 8有什么新东西，一边用PHP 8来写点有趣的东西好啦( ´▽｀)，比如写一个图床服务！&lt;/p&gt;
+&lt;p&gt;穷穷的 rippy 只能买得起一个最便宜的、远在波斯尼亚的VPS (&amp;gt;﹏&amp;lt;)&lt;/p&gt;
+&lt;p&gt;(已经搭建好了服务了喵～大家可以来玩鸭 &lt;a href=&#34;https://img.rippyyyyy.com&#34; target=&#34;_blank&#34;&gt;https://img.rippyyyyy.com&lt;/a&gt; ~)&lt;/p&gt;</description>
     </item>
     
     <item>
