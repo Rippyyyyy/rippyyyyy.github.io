@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta name="HandheldFriendly" content="True" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+<meta name="generator" content="Hugo 0.79.0" />
+
+
+<link rel="shortcut icon" href="https://cdn.jsdelivr.net/gh/amzrk2/cdn-stcapi@1/favicons/favicon.ico" />
+
+
+<title>PHP8 图床 - Rippyyyyy!</title>
+
+
+
+
+<meta property="og:title" content="PHP8 图床" />
+<meta property="og:description" content="rippy 发现前几天发布了PHP 8！既然之前说了不想成为废物，那么就一边看看PHP 8有什么新东西，一边用PHP 8来写点有趣的东西好啦( ´▽｀)，比如写一个图床服务！
+穷穷的 rippy 只能买得起一个最便宜的、远在波斯尼亚的VPS (&gt;﹏&lt;)
+sudo apt-get update sudo apt-get install -y git build-essential vim zsh wget gcc \  libgccjit-9-dev libsystemd-dev libzip-dev libxml2-dev libonig-dev \  libsqlite3-dev libjpeg-dev libpng-dev libwebp-dev \  libmysqlclient-dev \  autoconf automake re2c bison pkg-config libtool 编译配置PHP 8 接着就是下载和编译PHP 8的源代码了！
+wget https://www.php.net/distributions/php-8.0.0.tar.xz -O php-8.0.0.tar.xz tar xf php-8.0.0.tar.xz cd php-8.0.0 ./configure --prefix=/usr/local --enable-fpm --enable-opcache --with-zlib \  --enable-sockets --enable-bcmath --enable-mbstring \  --enable-gd --with-webp --with-jpeg --enable-exif \  --with-fpm-systemd --without-pear \  --with-mysqli=`which mysql_config` \  --with-mysql-sock=/var/run/mysqld/mysqld." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://rippyyyyy.github.io/posts/php8-img-bed/" />
+<meta property="article:published_time" content="2020-11-29T15:25:53+00:00" />
+<meta property="article:modified_time" content="2020-11-29T15:25:53+00:00" />
+
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PHP8 图床"/>
+<meta name="twitter:description" content="rippy 发现前几天发布了PHP 8！既然之前说了不想成为废物，那么就一边看看PHP 8有什么新东西，一边用PHP 8来写点有趣的东西好啦( ´▽｀)，比如写一个图床服务！
+穷穷的 rippy 只能买得起一个最便宜的、远在波斯尼亚的VPS (&gt;﹏&lt;)
+sudo apt-get update sudo apt-get install -y git build-essential vim zsh wget gcc \  libgccjit-9-dev libsystemd-dev libzip-dev libxml2-dev libonig-dev \  libsqlite3-dev libjpeg-dev libpng-dev libwebp-dev \  libmysqlclient-dev \  autoconf automake re2c bison pkg-config libtool 编译配置PHP 8 接着就是下载和编译PHP 8的源代码了！
+wget https://www.php.net/distributions/php-8.0.0.tar.xz -O php-8.0.0.tar.xz tar xf php-8.0.0.tar.xz cd php-8.0.0 ./configure --prefix=/usr/local --enable-fpm --enable-opcache --with-zlib \  --enable-sockets --enable-bcmath --enable-mbstring \  --enable-gd --with-webp --with-jpeg --enable-exif \  --with-fpm-systemd --without-pear \  --with-mysqli=`which mysql_config` \  --with-mysql-sock=/var/run/mysqld/mysqld."/>
+
+
+
+<style>
+    @media (prefers-color-scheme: dark) {
+        body[data-theme='auto'] img {
+            filter: brightness(60%);
+        }
+    }
+
+    body[data-theme='dark'] img {
+        filter: brightness(60%);
+    }
+</style>
+
+
+
+<link rel="stylesheet" href="https://rippyyyyy.github.io/assets/css/fuji.min.css" />
+
+
+
+
+
+</head>
+
+<body data-theme="auto">
+    <script data-cfasync="false">
+  
+  var fujiThemeData = localStorage.getItem('fuji_data-theme');
+  
+  if (!fujiThemeData) {
+    localStorage.setItem('fuji_data-theme', 'auto');
+  } else {
+    
+    if (fujiThemeData !== 'auto') {
+      document.body.setAttribute('data-theme', fujiThemeData === 'dark' ? 'dark' : 'light');
+    }
+  }
+</script>
+
+    <header>
+    <div class="container-lg clearfix">
+        <div class="col-12 header">
+            <a class="title-main" href="https://rippyyyyy.github.io/">Rippyyyyy!</a>
+            
+        </div>
+    </div>
+</header>
+
+    <main>
+        <div class="container-lg clearfix">
+            
+            <div class="col-12 col-md-9 float-left content">
+                
+<article>
+    
+    <h2 class="post-item post-title">
+        <a href="https://rippyyyyy.github.io/posts/php8-img-bed/">PHP8 图床</a>
+    </h2>
+    <div class="post-item post-meta">
+        <span><i class="iconfont icon-today-sharp"></i>&nbsp;2020-11-29</span><span><i class="iconfont icon-pricetags-sharp"></i>&nbsp;No tag</span>
+
+    </div>
+    
+    
+    <div class="post-content markdown-body">
+        <p>rippy 发现前几天发布了PHP 8！既然之前说了不想成为废物，那么就一边看看PHP 8有什么新东西，一边用PHP 8来写点有趣的东西好啦( ´▽｀)，比如写一个图床服务！</p>
+<p>穷穷的 rippy 只能买得起一个最便宜的、远在波斯尼亚的VPS (&gt;﹏&lt;)</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-get update
+sudo apt-get install -y git build-essential vim zsh wget gcc <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    libgccjit-9-dev libsystemd-dev libzip-dev libxml2-dev libonig-dev <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    libsqlite3-dev libjpeg-dev libpng-dev libwebp-dev <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    libmysqlclient-dev <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    autoconf automake re2c bison pkg-config libtool
+</code></pre></div><h3 id="编译配置php-8">编译配置PHP 8</h3>
+<p>接着就是下载和编译PHP 8的源代码了！</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">wget https://www.php.net/distributions/php-8.0.0.tar.xz -O php-8.0.0.tar.xz
+tar xf php-8.0.0.tar.xz
+cd php-8.0.0
+./configure --prefix<span style="color:#f92672">=</span>/usr/local --enable-fpm --enable-opcache --with-zlib <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --enable-sockets --enable-bcmath --enable-mbstring <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --enable-gd --with-webp --with-jpeg --enable-exif <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --with-fpm-systemd  --without-pear <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --with-mysqli<span style="color:#f92672">=</span><span style="color:#e6db74">`</span>which mysql_config<span style="color:#e6db74">`</span> <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --with-mysql-sock<span style="color:#f92672">=</span>/var/run/mysqld/mysqld.sock <span style="color:#ae81ff">\
+</span><span style="color:#ae81ff"></span>    --with-pdo-mysql<span style="color:#f92672">=</span>mysqlnd
+make -j<span style="color:#e6db74">`</span>nproc<span style="color:#e6db74">`</span> <span style="color:#f92672">&amp;&amp;</span> sudo make install
+</code></pre></div><p>这样子就编译安装好了PHP 8了的说～然后需要创建一下php.ini文件</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e"># 这个命令可以看到php默认读取pphp.ini文件的目录</span>
+/usr/local/bin/php --ini
+<span style="color:#75715e"># 我这里是 /usr/local/lib 这个目录</span>
+<span style="color:#75715e"># 需要加上mysqli的扩展</span>
+echo <span style="color:#e6db74">&#34;extension=php_mysqli.so&#34;</span> | sudo tee /usr/local/lib/php.ini
+</code></pre></div><p>接着就是 systemd 的 service 文件，<code>/lib/systemd/system/php8.0-fpm.service</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-systemd" data-lang="systemd"><span style="color:#66d9ef">[Unit]</span>
+<span style="color:#a6e22e">Description</span><span style="color:#f92672">=</span><span style="color:#e6db74">The PHP 8.0 FastCGI Process Manager</span>
+<span style="color:#a6e22e">Documentation</span><span style="color:#f92672">=</span><span style="color:#e6db74">man:php-fpm8.0(8)</span>
+<span style="color:#a6e22e">After</span><span style="color:#f92672">=</span><span style="color:#e6db74">network.target</span>
+
+<span style="color:#66d9ef">[Service]</span>
+<span style="color:#a6e22e">Type</span><span style="color:#f92672">=</span><span style="color:#e6db74">notify</span>
+<span style="color:#a6e22e">ExecStart</span><span style="color:#f92672">=</span><span style="color:#e6db74">/usr/local/sbin/php-fpm --nodaemonize --fpm-config /etc/php/8.0/fpm/php-fpm.conf</span>
+<span style="color:#a6e22e">ExecStartPost</span><span style="color:#f92672">=</span><span style="color:#e6db74">-/usr/lib/php/php8-fpm-socket-helper install /run/php/php-fpm.sock /etc/php/8.0/fpm/pool.d/www.conf 80</span>
+<span style="color:#a6e22e">ExecStopPost</span><span style="color:#f92672">=</span><span style="color:#e6db74">-/usr/lib/php/php8-fpm-socket-helper remove /run/php/php-fpm.sock /etc/php/8.0/fpm/pool.d/www.conf 80</span>
+<span style="color:#a6e22e">ExecReload</span><span style="color:#f92672">=</span><span style="color:#e6db74">/bin/kill -USR2 $MAINPID</span>
+
+<span style="color:#66d9ef">[Install]</span>
+<span style="color:#a6e22e">WantedBy</span><span style="color:#f92672">=</span><span style="color:#e6db74">multi-user.target</span>
+</code></pre></div><p>如此一来，我们需要先创建好几个对应的目录</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">mkdir -p /etc/php/8.0/fpm
+mkdir -p /run/php
+mkdir -p /etc/php/8.0/fpm/pool.d/
+</code></pre></div><p>然后还有1个脚本，2个配置文件需要从PHP 7.4那边偷过来～首先是 <code>/usr/lib/php/php8-fpm-socket-helper</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash"><span style="color:#75715e">#!/bin/sh
+</span><span style="color:#75715e"></span>
+DEFAULT_SOCKET<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>2<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+POOL_FILE<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>3<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+PRIORITY<span style="color:#f92672">=</span><span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>4<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span>
+
+<span style="color:#f92672">[</span> -r <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>POOL_FILE<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> exit <span style="color:#ae81ff">0</span>
+
+SOCKET<span style="color:#f92672">=</span><span style="color:#66d9ef">$(</span>sed -n <span style="color:#e6db74">&#39;s/^listen[[:space:]]*=[[:space:]]*\([^[:space:]]*\)/\1/p&#39;</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>POOL_FILE<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span><span style="color:#66d9ef">)</span>
+
+<span style="color:#f92672">[</span> -S <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>SOCKET<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#f92672">]</span> <span style="color:#f92672">||</span> exit <span style="color:#ae81ff">0</span>
+
+<span style="color:#66d9ef">case</span> <span style="color:#e6db74">&#34;</span>$1<span style="color:#e6db74">&#34;</span> in
+    start|install<span style="color:#f92672">)</span>
+	/usr/bin/update-alternatives --quiet --install <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>DEFAULT_SOCKET<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> php-fpm.sock <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>SOCKET<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>PRIORITY<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> 2&gt;/dev/null
+	;;
+    stop|remove<span style="color:#f92672">)</span>
+	/usr/bin/update-alternatives --quiet --remove php-fpm.sock <span style="color:#e6db74">&#34;</span><span style="color:#e6db74">${</span>SOCKET<span style="color:#e6db74">}</span><span style="color:#e6db74">&#34;</span> 2&gt;/dev/null
+	;;
+    *<span style="color:#f92672">)</span>
+	exit <span style="color:#ae81ff">1</span>
+	;;
+<span style="color:#66d9ef">esac</span>
+
+exit <span style="color:#ae81ff">0</span>
+</code></pre></div><p>接下来是 <code>/etc/php/8.0/fpm/php-fpm.conf</code></p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#75715e">;;;;;;;;;;;;;;;;;;;;;</span>
+<span style="color:#75715e">; FPM Configuration ;</span>
+<span style="color:#75715e">;;;;;;;;;;;;;;;;;;;;;</span>
+
+<span style="color:#75715e">; All relative paths in this configuration file are relative to PHP&#39;s install</span>
+<span style="color:#75715e">; prefix (/usr). This prefix can be dynamically changed by using the</span>
+<span style="color:#75715e">; &#39;-p&#39; argument from the command line.</span>
+
+<span style="color:#75715e">;;;;;;;;;;;;;;;;;;</span>
+<span style="color:#75715e">; Global Options ;</span>
+<span style="color:#75715e">;;;;;;;;;;;;;;;;;;</span>
+
+<span style="color:#66d9ef">[global]</span>
+<span style="color:#75715e">; Pid file</span>
+<span style="color:#75715e">; Note: the default prefix is /var</span>
+<span style="color:#75715e">; Default Value: none</span>
+<span style="color:#75715e">; Warning: if you change the value here, you need to modify systemd</span>
+<span style="color:#75715e">; service PIDFile= setting to match the value here.</span>
+<span style="color:#a6e22e">pid</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">/run/php/php8.0-fpm.pid</span>
+
+<span style="color:#75715e">; Error log file</span>
+<span style="color:#75715e">; If it&#39;s set to &#34;syslog&#34;, log is sent to syslogd instead of being written</span>
+<span style="color:#75715e">; into a local file.</span>
+<span style="color:#75715e">; Note: the default prefix is /var</span>
+<span style="color:#75715e">; Default Value: log/php-fpm.log</span>
+<span style="color:#a6e22e">error_log</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">/var/log/php8.0-fpm.log</span>
+
+<span style="color:#75715e">; syslog_facility is used to specify what type of program is logging the</span>
+<span style="color:#75715e">; message. This lets syslogd specify that messages from different facilities</span>
+<span style="color:#75715e">; will be handled differently.</span>
+<span style="color:#75715e">; See syslog(3) for possible values (ex daemon equiv LOG_DAEMON)</span>
+<span style="color:#75715e">; Default Value: daemon</span>
+<span style="color:#75715e">;syslog.facility = daemon</span>
+
+<span style="color:#75715e">; syslog_ident is prepended to every message. If you have multiple FPM</span>
+<span style="color:#75715e">; instances running on the same server, you can change the default value</span>
+<span style="color:#75715e">; which must suit common needs.</span>
+<span style="color:#75715e">; Default Value: php-fpm</span>
+<span style="color:#75715e">;syslog.ident = php-fpm</span>
+
+<span style="color:#75715e">; Log level</span>
+<span style="color:#75715e">; Possible Values: alert, error, warning, notice, debug</span>
+<span style="color:#75715e">; Default Value: notice</span>
+<span style="color:#75715e">;log_level = notice</span>
+
+<span style="color:#75715e">; Log limit on number of characters in the single line (log entry). If the</span>
+<span style="color:#75715e">; line is over the limit, it is wrapped on multiple lines. The limit is for</span>
+<span style="color:#75715e">; all logged characters including message prefix and suffix if present. However</span>
+<span style="color:#75715e">; the new line character does not count into it as it is present only when</span>
+<span style="color:#75715e">; logging to a file descriptor. It means the new line character is not present</span>
+<span style="color:#75715e">; when logging to syslog.</span>
+<span style="color:#75715e">; Default Value: 1024</span>
+<span style="color:#75715e">;log_limit = 4096</span>
+
+<span style="color:#75715e">; Log buffering specifies if the log line is buffered which means that the</span>
+<span style="color:#75715e">; line is written in a single write operation. If the value is false, then the</span>
+<span style="color:#75715e">; data is written directly into the file descriptor. It is an experimental</span>
+<span style="color:#75715e">; option that can potentionaly improve logging performance and memory usage</span>
+<span style="color:#75715e">; for some heavy logging scenarios. This option is ignored if logging to syslog</span>
+<span style="color:#75715e">; as it has to be always buffered.</span>
+<span style="color:#75715e">; Default value: yes</span>
+<span style="color:#75715e">;log_buffering = no</span>
+
+<span style="color:#75715e">; If this number of child processes exit with SIGSEGV or SIGBUS within the time</span>
+<span style="color:#75715e">; interval set by emergency_restart_interval then FPM will restart. A value</span>
+<span style="color:#75715e">; of &#39;0&#39; means &#39;Off&#39;.</span>
+<span style="color:#75715e">; Default Value: 0</span>
+<span style="color:#75715e">;emergency_restart_threshold = 0</span>
+
+<span style="color:#75715e">; Interval of time used by emergency_restart_interval to determine when</span>
+<span style="color:#75715e">; a graceful restart will be initiated.  This can be useful to work around</span>
+<span style="color:#75715e">; accidental corruptions in an accelerator&#39;s shared memory.</span>
+<span style="color:#75715e">; Available Units: s(econds), m(inutes), h(ours), or d(ays)</span>
+<span style="color:#75715e">; Default Unit: seconds</span>
+<span style="color:#75715e">; Default Value: 0</span>
+<span style="color:#75715e">;emergency_restart_interval = 0</span>
+
+<span style="color:#75715e">; Time limit for child processes to wait for a reaction on signals from master.</span>
+<span style="color:#75715e">; Available units: s(econds), m(inutes), h(ours), or d(ays)</span>
+<span style="color:#75715e">; Default Unit: seconds</span>
+<span style="color:#75715e">; Default Value: 0</span>
+<span style="color:#75715e">;process_control_timeout = 0</span>
+
+<span style="color:#75715e">; The maximum number of processes FPM will fork. This has been designed to control</span>
+<span style="color:#75715e">; the global number of processes when using dynamic PM within a lot of pools.</span>
+<span style="color:#75715e">; Use it with caution.</span>
+<span style="color:#75715e">; Note: A value of 0 indicates no limit</span>
+<span style="color:#75715e">; Default Value: 0</span>
+<span style="color:#75715e">; process.max = 128</span>
+
+<span style="color:#75715e">; Specify the nice(2) priority to apply to the master process (only if set)</span>
+<span style="color:#75715e">; The value can vary from -19 (highest priority) to 20 (lowest priority)</span>
+<span style="color:#75715e">; Note: - It will only work if the FPM master process is launched as root</span>
+<span style="color:#75715e">;       - The pool process will inherit the master process priority</span>
+<span style="color:#75715e">;         unless specified otherwise</span>
+<span style="color:#75715e">; Default Value: no set</span>
+<span style="color:#75715e">; process.priority = -19</span>
+
+<span style="color:#75715e">; Send FPM to background. Set to &#39;no&#39; to keep FPM in foreground for debugging.</span>
+<span style="color:#75715e">; Default Value: yes</span>
+<span style="color:#75715e">;daemonize = yes</span>
+
+<span style="color:#75715e">; Set open file descriptor rlimit for the master process.</span>
+<span style="color:#75715e">; Default Value: system defined value</span>
+<span style="color:#75715e">;rlimit_files = 1024</span>
+
+<span style="color:#75715e">; Set max core size rlimit for the master process.</span>
+<span style="color:#75715e">; Possible Values: &#39;unlimited&#39; or an integer greater or equal to 0</span>
+<span style="color:#75715e">; Default Value: system defined value</span>
+<span style="color:#75715e">;rlimit_core = 0</span>
+
+<span style="color:#75715e">; Specify the event mechanism FPM will use. The following is available:</span>
+<span style="color:#75715e">; - select     (any POSIX os)</span>
+<span style="color:#75715e">; - poll       (any POSIX os)</span>
+<span style="color:#75715e">; - epoll      (linux &gt;= 2.5.44)</span>
+<span style="color:#75715e">; - kqueue     (FreeBSD &gt;= 4.1, OpenBSD &gt;= 2.9, NetBSD &gt;= 2.0)</span>
+<span style="color:#75715e">; - /dev/poll  (Solaris &gt;= 7)</span>
+<span style="color:#75715e">; - port       (Solaris &gt;= 10)</span>
+<span style="color:#75715e">; Default Value: not set (auto detection)</span>
+<span style="color:#75715e">;events.mechanism = epoll</span>
+
+<span style="color:#75715e">; When FPM is built with systemd integration, specify the interval,</span>
+<span style="color:#75715e">; in seconds, between health report notification to systemd.</span>
+<span style="color:#75715e">; Set to 0 to disable.</span>
+<span style="color:#75715e">; Available Units: s(econds), m(inutes), h(ours)</span>
+<span style="color:#75715e">; Default Unit: seconds</span>
+<span style="color:#75715e">; Default value: 10</span>
+<span style="color:#75715e">;systemd_interval = 10</span>
+
+<span style="color:#75715e">;;;;;;;;;;;;;;;;;;;;</span>
+<span style="color:#75715e">; Pool Definitions ;</span>
+<span style="color:#75715e">;;;;;;;;;;;;;;;;;;;;</span>
+
+<span style="color:#75715e">; Multiple pools of child processes may be started with different listening</span>
+<span style="color:#75715e">; ports and different management options.  The name of the pool will be</span>
+<span style="color:#75715e">; used in logs and stats. There is no limitation on the number of pools which</span>
+<span style="color:#75715e">; FPM can handle. Your system will tell you anyway :)</span>
+
+<span style="color:#75715e">; Include one or more files. If glob(3) exists, it is used to include a bunch of</span>
+<span style="color:#75715e">; files from a glob(3) pattern. This directive can be used everywhere in the</span>
+<span style="color:#75715e">; file.</span>
+<span style="color:#75715e">; Relative path can also be used. They will be prefixed by:</span>
+<span style="color:#75715e">;  - the global prefix if it&#39;s been set (-p argument)</span>
+<span style="color:#75715e">;  - /usr otherwise</span>
+<span style="color:#a6e22e">include</span><span style="color:#f92672">=</span><span style="color:#e6db74">/etc/php/8.0/fpm/pool.d/*.conf</span>
+</code></pre></div><p>之后就是 <code>/etc/php/8.0/fpm/pool.d/www.conf</code> 了</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-ini" data-lang="ini"><span style="color:#75715e">; Start a new pool named &#39;www&#39;.</span>
+<span style="color:#75715e">; the variable $pool can be used in any directive and will be replaced by the</span>
+<span style="color:#75715e">; pool name (&#39;www&#39; here)</span>
+<span style="color:#66d9ef">[www]</span>
+
+<span style="color:#75715e">; Per pool prefix</span>
+<span style="color:#75715e">; It only applies on the following directives:</span>
+<span style="color:#75715e">; - &#39;access.log&#39;</span>
+<span style="color:#75715e">; - &#39;slowlog&#39;</span>
+<span style="color:#75715e">; - &#39;listen&#39; (unixsocket)</span>
+<span style="color:#75715e">; - &#39;chroot&#39;</span>
+<span style="color:#75715e">; - &#39;chdir&#39;</span>
+<span style="color:#75715e">; - &#39;php_values&#39;</span>
+<span style="color:#75715e">; - &#39;php_admin_values&#39;</span>
+<span style="color:#75715e">; When not set, the global prefix (or /usr) applies instead.</span>
+<span style="color:#75715e">; Note: This directive can also be relative to the global prefix.</span>
+<span style="color:#75715e">; Default Value: none</span>
+<span style="color:#75715e">;prefix = /path/to/pools/$pool</span>
+
+<span style="color:#75715e">; Unix user/group of processes</span>
+<span style="color:#75715e">; Note: The user is mandatory. If the group is not set, the default user&#39;s group</span>
+<span style="color:#75715e">;       will be used.</span>
+<span style="color:#a6e22e">user</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">www-data</span>
+<span style="color:#a6e22e">group</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">www-data</span>
+
+<span style="color:#75715e">; The address on which to accept FastCGI requests.</span>
+<span style="color:#75715e">; Valid syntaxes are:</span>
+<span style="color:#75715e">;   &#39;ip.add.re.ss:port&#39;    - to listen on a TCP socket to a specific IPv4 address on</span>
+<span style="color:#75715e">;                            a specific port;</span>
+<span style="color:#75715e">;   &#39;[ip:6:addr:ess]:port&#39; - to listen on a TCP socket to a specific IPv6 address on</span>
+<span style="color:#75715e">;                            a specific port;</span>
+<span style="color:#75715e">;   &#39;port&#39;                 - to listen on a TCP socket to all addresses</span>
+<span style="color:#75715e">;                            (IPv6 and IPv4-mapped) on a specific port;</span>
+<span style="color:#75715e">;   &#39;/path/to/unix/socket&#39; - to listen on a unix socket.</span>
+<span style="color:#75715e">; Note: This value is mandatory.</span>
+<span style="color:#a6e22e">listen</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">/run/php/php8.0-fpm.sock</span>
+
+<span style="color:#75715e">; Set listen(2) backlog.</span>
+<span style="color:#75715e">; Default Value: 511 (-1 on FreeBSD and OpenBSD)</span>
+<span style="color:#75715e">;listen.backlog = 511</span>
+
+<span style="color:#75715e">; Set permissions for unix socket, if one is used. In Linux, read/write</span>
+<span style="color:#75715e">; permissions must be set in order to allow connections from a web server. Many</span>
+<span style="color:#75715e">; BSD-derived systems allow connections regardless of permissions. The owner</span>
+<span style="color:#75715e">; and group can be specified either by name or by their numeric IDs.</span>
+<span style="color:#75715e">; Default Values: user and group are set as the running user</span>
+<span style="color:#75715e">;                 mode is set to 0660</span>
+<span style="color:#a6e22e">listen.owner</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">www-data</span>
+<span style="color:#a6e22e">listen.group</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">www-data</span>
+<span style="color:#75715e">;listen.mode = 0660</span>
+<span style="color:#75715e">; When POSIX Access Control Lists are supported you can set them using</span>
+<span style="color:#75715e">; these options, value is a comma separated list of user/group names.</span>
+<span style="color:#75715e">; When set, listen.owner and listen.group are ignored</span>
+<span style="color:#75715e">;listen.acl_users =</span>
+<span style="color:#75715e">;listen.acl_groups =</span>
+
+<span style="color:#75715e">; List of addresses (IPv4/IPv6) of FastCGI clients which are allowed to connect.</span>
+<span style="color:#75715e">; Equivalent to the FCGI_WEB_SERVER_ADDRS environment variable in the original</span>
+<span style="color:#75715e">; PHP FCGI (5.2.2+). Makes sense only with a tcp listening socket. Each address</span>
+<span style="color:#75715e">; must be separated by a comma. If this value is left blank, connections will be</span>
+<span style="color:#75715e">; accepted from any ip address.</span>
+<span style="color:#75715e">; Default Value: any</span>
+<span style="color:#75715e">;listen.allowed_clients = 127.0.0.1</span>
+
+<span style="color:#75715e">; Specify the nice(2) priority to apply to the pool processes (only if set)</span>
+<span style="color:#75715e">; The value can vary from -19 (highest priority) to 20 (lower priority)</span>
+<span style="color:#75715e">; Note: - It will only work if the FPM master process is launched as root</span>
+<span style="color:#75715e">;       - The pool processes will inherit the master process priority</span>
+<span style="color:#75715e">;         unless it specified otherwise</span>
+<span style="color:#75715e">; Default Value: no set</span>
+<span style="color:#75715e">; process.priority = -19</span>
+
+<span style="color:#75715e">; Set the process dumpable flag (PR_SET_DUMPABLE prctl) even if the process user</span>
+<span style="color:#75715e">; or group is differrent than the master process user. It allows to create process</span>
+<span style="color:#75715e">; core dump and ptrace the process for the pool user.</span>
+<span style="color:#75715e">; Default Value: no</span>
+<span style="color:#75715e">; process.dumpable = yes</span>
+
+<span style="color:#75715e">; Choose how the process manager will control the number of child processes.</span>
+<span style="color:#75715e">; Possible Values:</span>
+<span style="color:#75715e">;   static  - a fixed number (pm.max_children) of child processes;</span>
+<span style="color:#75715e">;   dynamic - the number of child processes are set dynamically based on the</span>
+<span style="color:#75715e">;             following directives. With this process management, there will be</span>
+<span style="color:#75715e">;             always at least 1 children.</span>
+<span style="color:#75715e">;             pm.max_children      - the maximum number of children that can</span>
+<span style="color:#75715e">;                                    be alive at the same time.</span>
+<span style="color:#75715e">;             pm.start_servers     - the number of children created on startup.</span>
+<span style="color:#75715e">;             pm.min_spare_servers - the minimum number of children in &#39;idle&#39;</span>
+<span style="color:#75715e">;                                    state (waiting to process). If the number</span>
+<span style="color:#75715e">;                                    of &#39;idle&#39; processes is less than this</span>
+<span style="color:#75715e">;                                    number then some children will be created.</span>
+<span style="color:#75715e">;             pm.max_spare_servers - the maximum number of children in &#39;idle&#39;</span>
+<span style="color:#75715e">;                                    state (waiting to process). If the number</span>
+<span style="color:#75715e">;                                    of &#39;idle&#39; processes is greater than this</span>
+<span style="color:#75715e">;                                    number then some children will be killed.</span>
+<span style="color:#75715e">;  ondemand - no children are created at startup. Children will be forked when</span>
+<span style="color:#75715e">;             new requests will connect. The following parameter are used:</span>
+<span style="color:#75715e">;             pm.max_children           - the maximum number of children that</span>
+<span style="color:#75715e">;                                         can be alive at the same time.</span>
+<span style="color:#75715e">;             pm.process_idle_timeout   - The number of seconds after which</span>
+<span style="color:#75715e">;                                         an idle process will be killed.</span>
+<span style="color:#75715e">; Note: This value is mandatory.</span>
+<span style="color:#a6e22e">pm</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">dynamic</span>
+
+<span style="color:#75715e">; The number of child processes to be created when pm is set to &#39;static&#39; and the</span>
+<span style="color:#75715e">; maximum number of child processes when pm is set to &#39;dynamic&#39; or &#39;ondemand&#39;.</span>
+<span style="color:#75715e">; This value sets the limit on the number of simultaneous requests that will be</span>
+<span style="color:#75715e">; served. Equivalent to the ApacheMaxClients directive with mpm_prefork.</span>
+<span style="color:#75715e">; Equivalent to the PHP_FCGI_CHILDREN environment variable in the original PHP</span>
+<span style="color:#75715e">; CGI. The below defaults are based on a server without much resources. Don&#39;t</span>
+<span style="color:#75715e">; forget to tweak pm.* to fit your needs.</span>
+<span style="color:#75715e">; Note: Used when pm is set to &#39;static&#39;, &#39;dynamic&#39; or &#39;ondemand&#39;</span>
+<span style="color:#75715e">; Note: This value is mandatory.</span>
+<span style="color:#a6e22e">pm.max_children</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">5</span>
+
+<span style="color:#75715e">; The number of child processes created on startup.</span>
+<span style="color:#75715e">; Note: Used only when pm is set to &#39;dynamic&#39;</span>
+<span style="color:#75715e">; Default Value: (min_spare_servers + max_spare_servers) / 2</span>
+<span style="color:#a6e22e">pm.start_servers</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">2</span>
+
+<span style="color:#75715e">; The desired minimum number of idle server processes.</span>
+<span style="color:#75715e">; Note: Used only when pm is set to &#39;dynamic&#39;</span>
+<span style="color:#75715e">; Note: Mandatory when pm is set to &#39;dynamic&#39;</span>
+<span style="color:#a6e22e">pm.min_spare_servers</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">1</span>
+
+<span style="color:#75715e">; The desired maximum number of idle server processes.</span>
+<span style="color:#75715e">; Note: Used only when pm is set to &#39;dynamic&#39;</span>
+<span style="color:#75715e">; Note: Mandatory when pm is set to &#39;dynamic&#39;</span>
+<span style="color:#a6e22e">pm.max_spare_servers</span> <span style="color:#f92672">=</span> <span style="color:#e6db74">3</span>
+
+<span style="color:#75715e">; The number of seconds after which an idle process will be killed.</span>
+<span style="color:#75715e">; Note: Used only when pm is set to &#39;ondemand&#39;</span>
+<span style="color:#75715e">; Default Value: 10s</span>
+<span style="color:#75715e">;pm.process_idle_timeout = 10s;</span>
+
+<span style="color:#75715e">; The number of requests each child process should execute before respawning.</span>
+<span style="color:#75715e">; This can be useful to work around memory leaks in 3rd party libraries. For</span>
+<span style="color:#75715e">; endless request processing specify &#39;0&#39;. Equivalent to PHP_FCGI_MAX_REQUESTS.</span>
+<span style="color:#75715e">; Default Value: 0</span>
+<span style="color:#75715e">;pm.max_requests = 500</span>
+
+<span style="color:#75715e">; The URI to view the FPM status page. If this value is not set, no URI will be</span>
+<span style="color:#75715e">; recognized as a status page. It shows the following informations:</span>
+<span style="color:#75715e">;   pool                 - the name of the pool;</span>
+<span style="color:#75715e">;   process manager      - static, dynamic or ondemand;</span>
+<span style="color:#75715e">;   start time           - the date and time FPM has started;</span>
+<span style="color:#75715e">;   start since          - number of seconds since FPM has started;</span>
+<span style="color:#75715e">;   accepted conn        - the number of request accepted by the pool;</span>
+<span style="color:#75715e">;   listen queue         - the number of request in the queue of pending</span>
+<span style="color:#75715e">;                          connections (see backlog in listen(2));</span>
+<span style="color:#75715e">;   max listen queue     - the maximum number of requests in the queue</span>
+<span style="color:#75715e">;                          of pending connections since FPM has started;</span>
+<span style="color:#75715e">;   listen queue len     - the size of the socket queue of pending connections;</span>
+<span style="color:#75715e">;   idle processes       - the number of idle processes;</span>
+<span style="color:#75715e">;   active processes     - the number of active processes;</span>
+<span style="color:#75715e">;   total processes      - the number of idle + active processes;</span>
+<span style="color:#75715e">;   max active processes - the maximum number of active processes since FPM</span>
+<span style="color:#75715e">;                          has started;</span>
+<span style="color:#75715e">;   max children reached - number of times, the process limit has been reached,</span>
+<span style="color:#75715e">;                          when pm tries to start more children (works only for</span>
+<span style="color:#75715e">;                          pm &#39;dynamic&#39; and &#39;ondemand&#39;);</span>
+<span style="color:#75715e">; Value are updated in real time.</span>
+<span style="color:#75715e">; Example output:</span>
+<span style="color:#75715e">;   pool:                 www</span>
+<span style="color:#75715e">;   process manager:      static</span>
+<span style="color:#75715e">;   start time:           01/Jul/2011:17:53:49 +0200</span>
+<span style="color:#75715e">;   start since:          62636</span>
+<span style="color:#75715e">;   accepted conn:        190460</span>
+<span style="color:#75715e">;   listen queue:         0</span>
+<span style="color:#75715e">;   max listen queue:     1</span>
+<span style="color:#75715e">;   listen queue len:     42</span>
+<span style="color:#75715e">;   idle processes:       4</span>
+<span style="color:#75715e">;   active processes:     11</span>
+<span style="color:#75715e">;   total processes:      15</span>
+<span style="color:#75715e">;   max active processes: 12</span>
+<span style="color:#75715e">;   max children reached: 0</span>
+<span style="color:#75715e">;</span>
+<span style="color:#75715e">; By default the status page output is formatted as text/plain. Passing either</span>
+<span style="color:#75715e">; &#39;html&#39;, &#39;xml&#39; or &#39;json&#39; in the query string will return the corresponding</span>
+<span style="color:#75715e">; output syntax. Example:</span>
+<span style="color:#75715e">;   http://www.foo.bar/status</span>
+<span style="color:#75715e">;   http://www.foo.bar/status?json</span>
+<span style="color:#75715e">;   http://www.foo.bar/status?html</span>
+<span style="color:#75715e">;   http://www.foo.bar/status?xml</span>
+<span style="color:#75715e">;</span>
+<span style="color:#75715e">; By default the status page only outputs short status. Passing &#39;full&#39; in the</span>
+<span style="color:#75715e">; query string will also return status for each pool process.</span>
+<span style="color:#75715e">; Example:</span>
+<span style="color:#75715e">;   http://www.foo.bar/status?full</span>
+<span style="color:#75715e">;   http://www.foo.bar/status?json&amp;full</span>
+<span style="color:#75715e">;   http://www.foo.bar/status?html&amp;full</span>
+<span style="color:#75715e">;   http://www.foo.bar/status?xml&amp;full</span>
+<span style="color:#75715e">; The Full status returns for each process:</span>
+<span style="color:#75715e">;   pid                  - the PID of the process;</span>
+<span style="color:#75715e">;   state                - the state of the process (Idle, Running, ...);</span>
+<span style="color:#75715e">;   start time           - the date and time the process has started;</span>
+<span style="color:#75715e">;   start since          - the number of seconds since the process has started;</span>
+<span style="color:#75715e">;   requests             - the number of requests the process has served;</span>
+<span style="color:#75715e">;   request duration     - the duration in µs of the requests;</span>
+<span style="color:#75715e">;   request method       - the request method (GET, POST, ...);</span>
+<span style="color:#75715e">;   request URI          - the request URI with the query string;</span>
+<span style="color:#75715e">;   content length       - the content length of the request (only with POST);</span>
+<span style="color:#75715e">;   user                 - the user (PHP_AUTH_USER) (or &#39;-&#39; if not set);</span>
+<span style="color:#75715e">;   script               - the main script called (or &#39;-&#39; if not set);</span>
+<span style="color:#75715e">;   last request cpu     - the %cpu the last request consumed</span>
+<span style="color:#75715e">;                          it&#39;s always 0 if the process is not in Idle state</span>
+<span style="color:#75715e">;                          because CPU calculation is done when the request</span>
+<span style="color:#75715e">;                          processing has terminated;</span>
+<span style="color:#75715e">;   last request memory  - the max amount of memory the last request consumed</span>
+<span style="color:#75715e">;                          it&#39;s always 0 if the process is not in Idle state</span>
+<span style="color:#75715e">;                          because memory calculation is done when the request</span>
+<span style="color:#75715e">;                          processing has terminated;</span>
+<span style="color:#75715e">; If the process is in Idle state, then informations are related to the</span>
+<span style="color:#75715e">; last request the process has served. Otherwise informations are related to</span>
+<span style="color:#75715e">; the current request being served.</span>
+<span style="color:#75715e">; Example output:</span>
+<span style="color:#75715e">;   ************************</span>
+<span style="color:#75715e">;   pid:                  31330</span>
+<span style="color:#75715e">;   state:                Running</span>
+<span style="color:#75715e">;   start time:           01/Jul/2011:17:53:49 +0200</span>
+<span style="color:#75715e">;   start since:          63087</span>
+<span style="color:#75715e">;   requests:             12808</span>
+<span style="color:#75715e">;   request duration:     1250261</span>
+<span style="color:#75715e">;   request method:       GET</span>
+<span style="color:#75715e">;   request URI:          /test_mem.php?N=10000</span>
+<span style="color:#75715e">;   content length:       0</span>
+<span style="color:#75715e">;   user:                 -</span>
+<span style="color:#75715e">;   script:               /home/fat/web/docs/php/test_mem.php</span>
+<span style="color:#75715e">;   last request cpu:     0.00</span>
+<span style="color:#75715e">;   last request memory:  0</span>
+<span style="color:#75715e">;</span>
+<span style="color:#75715e">; Note: There is a real-time FPM status monitoring sample web page available</span>
+<span style="color:#75715e">;       It&#39;s available in: /usr/share/php/7.4/fpm/status.html</span>
+<span style="color:#75715e">;</span>
+<span style="color:#75715e">; Note: The value must start with a leading slash (/). The value can be</span>
+<span style="color:#75715e">;       anything, but it may not be a good idea to use the .php extension or it</span>
+<span style="color:#75715e">;       may conflict with a real PHP file.</span>
+<span style="color:#75715e">; Default Value: not set</span>
+<span style="color:#75715e">;pm.status_path = /status</span>
+
+<span style="color:#75715e">; The ping URI to call the monitoring page of FPM. If this value is not set, no</span>
+<span style="color:#75715e">; URI will be recognized as a ping page. This could be used to test from outside</span>
+<span style="color:#75715e">; that FPM is alive and responding, or to</span>
+<span style="color:#75715e">; - create a graph of FPM availability (rrd or such);</span>
+<span style="color:#75715e">; - remove a server from a group if it is not responding (load balancing);</span>
+<span style="color:#75715e">; - trigger alerts for the operating team (24/7).</span>
+<span style="color:#75715e">; Note: The value must start with a leading slash (/). The value can be</span>
+<span style="color:#75715e">;       anything, but it may not be a good idea to use the .php extension or it</span>
+<span style="color:#75715e">;       may conflict with a real PHP file.</span>
+<span style="color:#75715e">; Default Value: not set</span>
+<span style="color:#75715e">;ping.path = /ping</span>
+
+<span style="color:#75715e">; This directive may be used to customize the response of a ping request. The</span>
+<span style="color:#75715e">; response is formatted as text/plain with a 200 response code.</span>
+<span style="color:#75715e">; Default Value: pong</span>
+<span style="color:#75715e">;ping.response = pong</span>
+
+<span style="color:#75715e">; The access log file</span>
+<span style="color:#75715e">; Default: not set</span>
+<span style="color:#75715e">;access.log = log/$pool.access.log</span>
+
+<span style="color:#75715e">; The access log format.</span>
+<span style="color:#75715e">; The following syntax is allowed</span>
+<span style="color:#75715e">;  %%: the &#39;%&#39; character</span>
+<span style="color:#75715e">;  %C: %CPU used by the request</span>
+<span style="color:#75715e">;      it can accept the following format:</span>
+<span style="color:#75715e">;      - %{user}C for user CPU only</span>
+<span style="color:#75715e">;      - %{system}C for system CPU only</span>
+<span style="color:#75715e">;      - %{total}C  for user + system CPU (default)</span>
+<span style="color:#75715e">;  %d: time taken to serve the request</span>
+<span style="color:#75715e">;      it can accept the following format:</span>
+<span style="color:#75715e">;      - %{seconds}d (default)</span>
+<span style="color:#75715e">;      - %{miliseconds}d</span>
+<span style="color:#75715e">;      - %{mili}d</span>
+<span style="color:#75715e">;      - %{microseconds}d</span>
+<span style="color:#75715e">;      - %{micro}d</span>
+<span style="color:#75715e">;  %e: an environment variable (same as $_ENV or $_SERVER)</span>
+<span style="color:#75715e">;      it must be associated with embraces to specify the name of the env</span>
+<span style="color:#75715e">;      variable. Some exemples:</span>
+<span style="color:#75715e">;      - server specifics like: %{REQUEST_METHOD}e or %{SERVER_PROTOCOL}e</span>
+<span style="color:#75715e">;      - HTTP headers like: %{HTTP_HOST}e or %{HTTP_USER_AGENT}e</span>
+<span style="color:#75715e">;  %f: script filename</span>
+<span style="color:#75715e">;  %l: content-length of the request (for POST request only)</span>
+<span style="color:#75715e">;  %m: request method</span>
+<span style="color:#75715e">;  %M: peak of memory allocated by PHP</span>
+<span style="color:#75715e">;      it can accept the following format:</span>
+<span style="color:#75715e">;      - %{bytes}M (default)</span>
+<span style="color:#75715e">;      - %{kilobytes}M</span>
+<span style="color:#75715e">;      - %{kilo}M</span>
+<span style="color:#75715e">;      - %{megabytes}M</span>
+<span style="color:#75715e">;      - %{mega}M</span>
+<span style="color:#75715e">;  %n: pool name</span>
+<span style="color:#75715e">;  %o: output header</span>
+<span style="color:#75715e">;      it must be associated with embraces to specify the name of the header:</span>
+<span style="color:#75715e">;      - %{Content-Type}o</span>
+<span style="color:#75715e">;      - %{X-Powered-By}o</span>
+<span style="color:#75715e">;      - %{Transfert-Encoding}o</span>
+<span style="color:#75715e">;      - ....</span>
+<span style="color:#75715e">;  %p: PID of the child that serviced the request</span>
+<span style="color:#75715e">;  %P: PID of the parent of the child that serviced the request</span>
+<span style="color:#75715e">;  %q: the query string</span>
+<span style="color:#75715e">;  %Q: the &#39;?&#39; character if query string exists</span>
+<span style="color:#75715e">;  %r: the request URI (without the query string, see %q and %Q)</span>
+<span style="color:#75715e">;  %R: remote IP address</span>
+<span style="color:#75715e">;  %s: status (response code)</span>
+<span style="color:#75715e">;  %t: server time the request was received</span>
+<span style="color:#75715e">;      it can accept a strftime(3) format:</span>
+<span style="color:#75715e">;      %d/%b/%Y:%H:%M:%S %z (default)</span>
+<span style="color:#75715e">;      The strftime(3) format must be encapsuled in a %{&lt;strftime_format&gt;}t tag</span>
+<span style="color:#75715e">;      e.g. for a ISO8601 formatted timestring, use: %{%Y-%m-%dT%H:%M:%S%z}t</span>
+<span style="color:#75715e">;  %T: time the log has been written (the request has finished)</span>
+<span style="color:#75715e">;      it can accept a strftime(3) format:</span>
+<span style="color:#75715e">;      %d/%b/%Y:%H:%M:%S %z (default)</span>
+<span style="color:#75715e">;      The strftime(3) format must be encapsuled in a %{&lt;strftime_format&gt;}t tag</span>
+<span style="color:#75715e">;      e.g. for a ISO8601 formatted timestring, use: %{%Y-%m-%dT%H:%M:%S%z}t</span>
+<span style="color:#75715e">;  %u: remote user</span>
+<span style="color:#75715e">;</span>
+<span style="color:#75715e">; Default: &#34;%R - %u %t \&#34;%m %r\&#34; %s&#34;</span>
+<span style="color:#75715e">;access.format = &#34;%R - %u %t \&#34;%m %r%Q%q\&#34; %s %f %{mili}d %{kilo}M %C%%&#34;</span>
+
+<span style="color:#75715e">; The log file for slow requests</span>
+<span style="color:#75715e">; Default Value: not set</span>
+<span style="color:#75715e">; Note: slowlog is mandatory if request_slowlog_timeout is set</span>
+<span style="color:#75715e">;slowlog = log/$pool.log.slow</span>
+
+<span style="color:#75715e">; The timeout for serving a single request after which a PHP backtrace will be</span>
+<span style="color:#75715e">; dumped to the &#39;slowlog&#39; file. A value of &#39;0s&#39; means &#39;off&#39;.</span>
+<span style="color:#75715e">; Available units: s(econds)(default), m(inutes), h(ours), or d(ays)</span>
+<span style="color:#75715e">; Default Value: 0</span>
+<span style="color:#75715e">;request_slowlog_timeout = 0</span>
+
+<span style="color:#75715e">; Depth of slow log stack trace.</span>
+<span style="color:#75715e">; Default Value: 20</span>
+<span style="color:#75715e">;request_slowlog_trace_depth = 20</span>
+
+<span style="color:#75715e">; The timeout for serving a single request after which the worker process will</span>
+<span style="color:#75715e">; be killed. This option should be used when the &#39;max_execution_time&#39; ini option</span>
+<span style="color:#75715e">; does not stop script execution for some reason. A value of &#39;0&#39; means &#39;off&#39;.</span>
+<span style="color:#75715e">; Available units: s(econds)(default), m(inutes), h(ours), or d(ays)</span>
+<span style="color:#75715e">; Default Value: 0</span>
+<span style="color:#75715e">;request_terminate_timeout = 0</span>
+
+<span style="color:#75715e">; The timeout set by &#39;request_terminate_timeout&#39; ini option is not engaged after</span>
+<span style="color:#75715e">; application calls &#39;fastcgi_finish_request&#39; or when application has finished and</span>
+<span style="color:#75715e">; shutdown functions are being called (registered via register_shutdown_function).</span>
+<span style="color:#75715e">; This option will enable timeout limit to be applied unconditionally</span>
+<span style="color:#75715e">; even in such cases.</span>
+<span style="color:#75715e">; Default Value: no</span>
+<span style="color:#75715e">;request_terminate_timeout_track_finished = no</span>
+
+<span style="color:#75715e">; Set open file descriptor rlimit.</span>
+<span style="color:#75715e">; Default Value: system defined value</span>
+<span style="color:#75715e">;rlimit_files = 1024</span>
+
+<span style="color:#75715e">; Set max core size rlimit.</span>
+<span style="color:#75715e">; Possible Values: &#39;unlimited&#39; or an integer greater or equal to 0</span>
+<span style="color:#75715e">; Default Value: system defined value</span>
+<span style="color:#75715e">;rlimit_core = 0</span>
+
+<span style="color:#75715e">; Chroot to this directory at the start. This value must be defined as an</span>
+<span style="color:#75715e">; absolute path. When this value is not set, chroot is not used.</span>
+<span style="color:#75715e">; Note: you can prefix with &#39;$prefix&#39; to chroot to the pool prefix or one</span>
+<span style="color:#75715e">; of its subdirectories. If the pool prefix is not set, the global prefix</span>
+<span style="color:#75715e">; will be used instead.</span>
+<span style="color:#75715e">; Note: chrooting is a great security feature and should be used whenever</span>
+<span style="color:#75715e">;       possible. However, all PHP paths will be relative to the chroot</span>
+<span style="color:#75715e">;       (error_log, sessions.save_path, ...).</span>
+<span style="color:#75715e">; Default Value: not set</span>
+<span style="color:#75715e">;chroot =</span>
+
+<span style="color:#75715e">; Chdir to this directory at the start.</span>
+<span style="color:#75715e">; Note: relative path can be used.</span>
+<span style="color:#75715e">; Default Value: current directory or / when chroot</span>
+<span style="color:#75715e">;chdir = /var/www</span>
+
+<span style="color:#75715e">; Redirect worker stdout and stderr into main error log. If not set, stdout and</span>
+<span style="color:#75715e">; stderr will be redirected to /dev/null according to FastCGI specs.</span>
+<span style="color:#75715e">; Note: on highloaded environement, this can cause some delay in the page</span>
+<span style="color:#75715e">; process time (several ms).</span>
+<span style="color:#75715e">; Default Value: no</span>
+<span style="color:#75715e">;catch_workers_output = yes</span>
+
+<span style="color:#75715e">; Decorate worker output with prefix and suffix containing information about</span>
+<span style="color:#75715e">; the child that writes to the log and if stdout or stderr is used as well as</span>
+<span style="color:#75715e">; log level and time. This options is used only if catch_workers_output is yes.</span>
+<span style="color:#75715e">; Settings to &#34;no&#34; will output data as written to the stdout or stderr.</span>
+<span style="color:#75715e">; Default value: yes</span>
+<span style="color:#75715e">;decorate_workers_output = no</span>
+
+<span style="color:#75715e">; Clear environment in FPM workers</span>
+<span style="color:#75715e">; Prevents arbitrary environment variables from reaching FPM worker processes</span>
+<span style="color:#75715e">; by clearing the environment in workers before env vars specified in this</span>
+<span style="color:#75715e">; pool configuration are added.</span>
+<span style="color:#75715e">; Setting to &#34;no&#34; will make all environment variables available to PHP code</span>
+<span style="color:#75715e">; via getenv(), $_ENV and $_SERVER.</span>
+<span style="color:#75715e">; Default Value: yes</span>
+<span style="color:#75715e">;clear_env = no</span>
+
+<span style="color:#75715e">; Limits the extensions of the main script FPM will allow to parse. This can</span>
+<span style="color:#75715e">; prevent configuration mistakes on the web server side. You should only limit</span>
+<span style="color:#75715e">; FPM to .php extensions to prevent malicious users to use other extensions to</span>
+<span style="color:#75715e">; execute php code.</span>
+<span style="color:#75715e">; Note: set an empty value to allow all extensions.</span>
+<span style="color:#75715e">; Default Value: .php</span>
+<span style="color:#75715e">;security.limit_extensions = .php .php3 .php4 .php5 .php7</span>
+
+<span style="color:#75715e">; Pass environment variables like LD_LIBRARY_PATH. All $VARIABLEs are taken from</span>
+<span style="color:#75715e">; the current environment.</span>
+<span style="color:#75715e">; Default Value: clean env</span>
+<span style="color:#75715e">;env[HOSTNAME] = $HOSTNAME</span>
+<span style="color:#75715e">;env[PATH] = /usr/local/bin:/usr/bin:/bin</span>
+<span style="color:#75715e">;env[TMP] = /tmp</span>
+<span style="color:#75715e">;env[TMPDIR] = /tmp</span>
+<span style="color:#75715e">;env[TEMP] = /tmp</span>
+
+<span style="color:#75715e">; Additional php.ini defines, specific to this pool of workers. These settings</span>
+<span style="color:#75715e">; overwrite the values previously defined in the php.ini. The directives are the</span>
+<span style="color:#75715e">; same as the PHP SAPI:</span>
+<span style="color:#75715e">;   php_value/php_flag             - you can set classic ini defines which can</span>
+<span style="color:#75715e">;                                    be overwritten from PHP call &#39;ini_set&#39;.</span>
+<span style="color:#75715e">;   php_admin_value/php_admin_flag - these directives won&#39;t be overwritten by</span>
+<span style="color:#75715e">;                                     PHP call &#39;ini_set&#39;</span>
+<span style="color:#75715e">; For php_*flag, valid values are on, off, 1, 0, true, false, yes or no.</span>
+
+<span style="color:#75715e">; Defining &#39;extension&#39; will load the corresponding shared extension from</span>
+<span style="color:#75715e">; extension_dir. Defining &#39;disable_functions&#39; or &#39;disable_classes&#39; will not</span>
+<span style="color:#75715e">; overwrite previously defined php.ini values, but will append the new value</span>
+<span style="color:#75715e">; instead.</span>
+
+<span style="color:#75715e">; Note: path INI options can be relative and will be expanded with the prefix</span>
+<span style="color:#75715e">; (pool, global or /usr)</span>
+
+<span style="color:#75715e">; Default Value: nothing is defined by default except the values in php.ini and</span>
+<span style="color:#75715e">;                specified at startup with the -d argument</span>
+<span style="color:#75715e">;php_admin_value[sendmail_path] = /usr/sbin/sendmail -t -i -f www@my.domain.com</span>
+<span style="color:#75715e">;php_flag[display_errors] = off</span>
+<span style="color:#75715e">;php_admin_value[error_log] = /var/log/fpm-php.www.log</span>
+<span style="color:#75715e">;php_admin_flag[log_errors] = on</span>
+<span style="color:#75715e">;php_admin_value[memory_limit] = 32M</span>
+</code></pre></div><p>现在就可以把 <code>php-fpm</code> 跑起来了</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo systemctl enable php8.0-fpm.service
+sudo systemctl start php8.0-fpm.service
+sudo systemctl status php8.0-fpm.service
+</code></pre></div><h3 id="安装配置-nginx-并设置">安装配置 nginx 并设置</h3>
+<p>安装就是一步完成</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-bash" data-lang="bash">sudo apt-get install -y nginx
+</code></pre></div><p>然后配置文件的话，就随便写了一下</p>
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-nginx" data-lang="nginx"><span style="color:#66d9ef">server</span> {
+    <span style="color:#f92672">if</span> <span style="color:#e6db74">(</span>$host = <span style="color:#e6db74">img.rippyyyyy.com)</span> {
+        <span style="color:#f92672">return</span> <span style="color:#ae81ff">301</span> <span style="color:#e6db74">https://</span>$host$request_uri;
+    }
+
+    <span style="color:#f92672">listen</span> <span style="color:#ae81ff">80</span>;
+    <span style="color:#f92672">server_name</span> <span style="color:#e6db74">img.rippyyyyy.com</span>;
+    <span style="color:#f92672">return</span> <span style="color:#ae81ff">404</span>;
+}
+
+<span style="color:#66d9ef">server</span> {
+    <span style="color:#f92672">listen</span> <span style="color:#ae81ff">443</span> <span style="color:#e6db74">ssl</span> <span style="color:#e6db74">http2</span>;
+
+    <span style="color:#f92672">server_name</span> <span style="color:#e6db74">img.rippyyyyy.com</span>;
+    <span style="color:#f92672">root</span> <span style="color:#e6db74">/var/www/img</span>;
+
+    <span style="color:#f92672">ssl_certificate</span> <span style="color:#e6db74">/etc/letsencrypt/live/rippyyyyy.com/fullchain.pem</span>;
+    <span style="color:#f92672">ssl_certificate_key</span> <span style="color:#e6db74">/etc/letsencrypt/live/rippyyyyy.com/privkey.pem</span>;
+
+    <span style="color:#f92672">index</span> <span style="color:#e6db74">index.php</span>;
+    <span style="color:#f92672">client_max_body_size</span> <span style="color:#ae81ff">5m</span>;
+
+    <span style="color:#f92672">location</span> ~ <span style="color:#e6db74">/\.</span> {
+        <span style="color:#f92672">deny</span> <span style="color:#e6db74">all</span>;
+    }
+
+    <span style="color:#f92672">location</span> <span style="color:#e6db74">/</span> {
+        <span style="color:#f92672">try_files</span> $uri $uri/ <span style="color:#e6db74">/index.php?</span>$args;
+    }
+
+    <span style="color:#f92672">location</span> ~ <span style="color:#e6db74">\.php$</span> {
+        <span style="color:#f92672">include</span> <span style="color:#e6db74">snippets/fastcgi-php.conf</span>;
+        <span style="color:#f92672">fastcgi_intercept_errors</span> <span style="color:#66d9ef">on</span>;
+        <span style="color:#f92672">fastcgi_pass</span> <span style="color:#e6db74">unix:/run/php/php8.0-fpm.sock</span>;
+    }
+
+    <span style="color:#f92672">location</span> ~<span style="color:#e6db74">*</span> <span style="color:#e6db74">\.(js|css|png|jpg|jpeg|gif|ico|webp)</span>$ {
+        <span style="color:#f92672">expires</span> <span style="color:#e6db74">max</span>;
+        <span style="color:#f92672">log_not_found</span> <span style="color:#66d9ef">off</span>;
+    }
+}
+</code></pre></div><h3 id="mintgreen">MintGreen</h3>
+<p>最近喜欢上了MintGreen这样的颜色，那么就决定叫这个项目MintGreen了！但是把代码都放过来就太麻烦了，就留一个项目的github链接好了喵 (⌒-⌒; ) <a href="https://github.com/Rippyyyyy/mintgreen" target="_blank">https://github.com/Rippyyyyy/mintgreen</a></p>
+<p>不过截图还是可以扔过来的( ´▽｀)</p>
+<p><img class="img-zoomable" src="https://img.rippyyyyy.com/?i=1a80d27daffd34" alt="mintgreen" />
+</p>
+
+    </div>
+</article>
+
+
+
+
+            </div>
+            <aside class="col-12 col-md-3 float-left sidebar">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+        </div>
+    </div>
+    
+    
+    
+    <div class="sidebar-item sidebar-toc">
+        <h3>TOC</h3>
+        <nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#编译配置php-8">编译配置PHP 8</a></li>
+        <li><a href="#安装配置-nginx-并设置">安装配置 nginx 并设置</a></li>
+        <li><a href="#mintgreen">MintGreen</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav>
+    </div>
+    
+    
+</aside>
+        </div>
+        <div class="btn">
+    <div class="btn-menu" id="btn-menu">
+        <i class="iconfont icon-grid-sharp"></i>
+    </div>
+    <div class="btn-toggle-mode">
+        <i class="iconfont icon-contrast-sharp"></i>
+    </div>
+    <div class="btn-scroll-top">
+        <i class="iconfont icon-chevron-up-circle-sharp"></i>
+    </div>
+</div>
+<aside class="sidebar-mobile" style="display: none;">
+  <div class="sidebar-wrapper">
+    
+    <div class="sidebar-item sidebar-pages">
+        <h3>Pages</h3>
+        <ul>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-links">
+        <h3>Links</h3>
+        <ul>
+            
+        </ul>
+    </div>
+    
+    <div class="sidebar-item sidebar-tags">
+        <h3>Tags</h3>
+        <div>
+            
+        </div>
+    </div>
+    
+    
+    
+    
+  </div>
+</aside>
+    </main>
+
+    <footer>
+    <div class="container-lg clearfix">
+        <div class="col-12 footer">
+            
+            <span>&copy; 2020
+                <a href="https://rippyyyyy.github.io/"></a>
+                
+                | Powered by <a href="https://github.com/amzrk2/hugo-theme-fuji/"
+                   target="_blank">Fuji-v2</a> &amp; <a href="https://gohugo.io/"
+                                                    target="_blank">Hugo</a> 
+            </span>
+        </div>
+    </div>
+</footer>
+
+    
+<script defer src="https://cdn.jsdelivr.net/combine/npm/medium-zoom@1.0.6,npm/lazysizes@5.2.2"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/components/prism-core.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+<script defer src="/assets/js/fuji.min.js"></script>
+
+
+</body>
+
+</html>
